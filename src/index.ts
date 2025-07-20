@@ -44,7 +44,7 @@ export class MCPClientApp {
     }
   }
 
-  async processQuery(query: string): Promise<string> {
+  async processQuery(query: string): Promise<{ aiResponse: string; toolResults: string[] }> {
     const messages: AIMessage[] = [
       {
         role: "user",
@@ -53,6 +53,7 @@ export class MCPClientApp {
     ];
 
     const finalText = [];
+    const toolResults = [];
     let maxIterations = 100;
     let iteration = 0;
 
@@ -114,6 +115,9 @@ export class MCPClientApp {
 
           const result = await this.mcpClient.callTool(toolCall.name, toolCall.arguments);
 
+          // Store tool results separately for image extraction
+          toolResults.push(result.content);
+
           if (result.isError) {
             Logger.error(`Tool execution failed: ${result.content}`);
           } else {
@@ -149,7 +153,10 @@ export class MCPClientApp {
       finalText.push("\n⚠️ Maximum iterations reached. The automation may be incomplete.");
     }
 
-    return finalText.join("\n");
+    // Return only the AI response for user display, and tool results separately for processing
+    const aiResponse = finalText.join("\n");
+    
+    return { aiResponse, toolResults };
   }
 
   async startChatLoop(): Promise<void> {
@@ -170,7 +177,7 @@ export class MCPClientApp {
         
         try {
           const response = await this.processQuery(message);
-          console.log("\n" + response);
+          console.log("\n" + response.aiResponse);
         } catch (error) {
           Logger.error("Error processing query:", error);
         }

@@ -70,6 +70,26 @@ npm run build
 
 ## 🎯 Usage
 
+### Web Interface (Recommended)
+
+The easiest way to test and interact with your MCP client is through the web interface:
+
+```bash
+# Start the web server
+npm run dev
+
+# Open your browser to http://localhost:3001
+```
+
+The web interface provides:
+- **Real-time chat** with AI and MCP servers
+- **Visual screenshot display** from browser automation
+- **Connection management** for different MCP server types
+- **Configuration display** and status monitoring
+- **Quick test buttons** for common operations
+
+### Command Line Interface
+
 The client can connect to MCP servers in two ways:
 
 ### Option 1: HTTP/SSE Connection (Recommended for playwright-mcp)
