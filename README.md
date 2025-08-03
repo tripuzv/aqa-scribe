@@ -1,4 +1,4 @@
-# OpenAI-Powered MCP Client
+# AI-Powered MCP Client
 
 An LLM-powered chatbot MCP (Model Context Protocol) client written in TypeScript that uses OpenAI's GPT models to interact with MCP servers for browser automation, file operations, and more.
 
